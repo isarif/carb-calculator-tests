@@ -2,7 +2,6 @@ package pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.JavascriptExecutor;
 
 public class CarbCalculatorPage {
 
@@ -24,6 +23,11 @@ public class CarbCalculatorPage {
     private By calculateBtn = By.xpath("//input[@type='submit' and @value='Calculate']");
     private By settingsLink = By.xpath("//*[contains(text(),'Settings')]");
 
+    private void setInput(By locator, String value) {
+        WebElement el = driver.findElement(locator);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value = arguments[1];", el, value);
+    }
+    
     public void open() {
         driver.get("https://www.calculator.net/carbohydrate-calculator.html");
     }
@@ -44,9 +48,7 @@ public class CarbCalculatorPage {
     }
 
     public void enterAge(String age) {
-        WebElement ageInput = driver.findElement(ageField);
-        ageInput.clear();
-        ageInput.sendKeys(age);
+        setInput(ageField, age);
     }
 
     public void selectGender(String gender) {
@@ -58,35 +60,35 @@ public class CarbCalculatorPage {
     }
 
     public void enterHeightUS(String feet, String inches) {
-        WebElement feetInput = driver.findElement(heightFeetField);
-        WebElement inchInput = driver.findElement(heightInchField);
-        feetInput.clear();
-        feetInput.sendKeys(feet);
-        inchInput.clear();
-        inchInput.sendKeys(inches);
+        setInput(heightFeetField, feet);
+        setInput(heightInchField, inches);
     }
 
     public void enterHeightMetric(String cm) {
-        WebElement heightCmInput = driver.findElement(heightCmField);
-        heightCmInput.clear();
-        heightCmInput.sendKeys(cm);
+        setInput(heightCmField, cm);
     }
 
     public void enterWeightUS(String pounds) {
-        WebElement weightInput = driver.findElement(weightLbField);
-        weightInput.clear();
-        weightInput.sendKeys(pounds);
+        setInput(weightLbField, pounds);
     }
 
     public void enterWeightMetric(String kg) {
-        WebElement weightKgInput = driver.findElement(weightKgField);
-        weightKgInput.clear();
-        weightKgInput.sendKeys(kg);
+        setInput(weightKgField, kg);
     }
 
     public void selectActivity(String activity) {
         Select sel = new Select(driver.findElement(activityDropdown));
-        sel.selectByVisibleText(activity);
+        String target = activity.toLowerCase();
+
+        for (WebElement opt : sel.getOptions()) {
+            String txt = opt.getText().toLowerCase();
+            if (txt.startsWith(target) || txt.contains(target)) {
+                opt.click();
+                return;
+            }
+        }
+
+        throw new RuntimeException("Could not find activity option matching: " + activity);
     }
 
     public void openSettings() {
@@ -99,13 +101,11 @@ public class CarbCalculatorPage {
     }
 
     public void clearBodyFat() {
-        driver.findElement(bodyFatField).clear();
+        setInput(bodyFatField, "");
     }
 
     public void enterBodyFat(String value) {
-        WebElement bodyFatInput = driver.findElement(bodyFatField);
-        bodyFatInput.clear();
-        bodyFatInput.sendKeys(value);
+        setInput(bodyFatField, value);
     }
 
     public void clickCalculate() {
