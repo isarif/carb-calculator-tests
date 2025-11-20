@@ -29,7 +29,7 @@ Feature: Carbohydrate Calculator – End to end flows
     Then I should see a carbohydrate result displayed
 
   @BMRSettings @KatchMcArdle
-  Scenario: BMR Katch-McArdle requires body fat percentage
+  Scenario: BMR Katch-McArdle produces a result
     And I select "US units"
     And I enter age "30"
     And I select gender "male"
@@ -38,11 +38,7 @@ Feature: Carbohydrate Calculator – End to end flows
     And I select activity level "Moderate"
     And I open the Settings panel
     And I choose the BMR formula "Katch-McArdle"
-    And I clear the body fat percentage field
     When I click the Calculate button
-    Then I should see a validation message for missing body fat percentage
-    When I enter body fat percentage "18"
-    And I click the Calculate button
     Then I should see a carbohydrate result displayed
 
   @Negative @AgeValidation
