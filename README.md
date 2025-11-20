@@ -1,3 +1,19 @@
+<!-- Badges -->
+<p align="center">
+  <a href="https://github.com/isarif/carb-calculator-tests/actions">
+    <img src="https://github.com/isarif/carb-calculator-tests/actions/workflows/ci.yml/badge.svg" alt="Build Status">
+  </a>
+
+  <img src="https://img.shields.io/badge/Java-11-blue.svg" alt="Java 11">
+  
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License">
+
+  <img src="https://img.shields.io/badge/Selenium-4.x-brightgreen.svg" alt="Selenium 4">
+  
+  <img src="https://img.shields.io/badge/Cucumber-JVM-orange.svg" alt="Cucumber JVM">
+</p>
+
+
 # Carbohydrate Calculator – Test Strategy & Automated UI Scenarios
 
 UI Test Automation suite for the Carbohydrate Calculator on Calculator.net, featuring a full test strategy,
@@ -65,3 +81,5 @@ The repository includes:
 - Clean documentation explaining design choices and execution steps
 
 Overall, this approach reflects how I typically design, organize, and deliver high-quality automated UI testing work in a real engineering environment.
+
+---
