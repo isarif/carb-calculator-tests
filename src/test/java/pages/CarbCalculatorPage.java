@@ -28,9 +28,19 @@ public class CarbCalculatorPage {
     }
 
     public void selectUnits(String units) {
-        WebElement unitsOption = driver.findElement(By.xpath("//label[contains(.,'" + units + "')]"));
-        unitsOption.click();
+    String normalized = units.toLowerCase();
+
+    if (normalized.contains("us")) {
+        // US units is the default – just make sure we’re on the base page
+        driver.get("https://www.calculator.net/carbohydrate-calculator.html");
+    } else if (normalized.contains("metric")) {
+        // Metric units view
+        driver.get("https://www.calculator.net/carbohydrate-calculator.html?ctype=metric");
+    } else if (normalized.contains("other")) {
+        // Other units view (not currently used, but here for completeness)
+        driver.get("https://www.calculator.net/carbohydrate-calculator.html?ctype=other");
     }
+}
 
     public void enterAge(String age) {
         WebElement ageInput = driver.findElement(ageField);
