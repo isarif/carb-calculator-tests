@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.JavascriptExecutor;
 
 public class CarbCalculatorPage {
 
@@ -28,19 +29,19 @@ public class CarbCalculatorPage {
     }
 
     public void selectUnits(String units) {
-    String normalized = units.toLowerCase();
+        String normalized = units.toLowerCase();
 
-    if (normalized.contains("us")) {
-        // US units is the default – just make sure we’re on the base page
-        driver.get("https://www.calculator.net/carbohydrate-calculator.html");
-    } else if (normalized.contains("metric")) {
-        // Metric units view
-        driver.get("https://www.calculator.net/carbohydrate-calculator.html?ctype=metric");
-    } else if (normalized.contains("other")) {
-        // Other units view (not currently used, but here for completeness)
-        driver.get("https://www.calculator.net/carbohydrate-calculator.html?ctype=other");
+        if (normalized.contains("us")) {
+            // US units is the default – just make sure we’re on the base page
+            driver.get("https://www.calculator.net/carbohydrate-calculator.html");
+        } else if (normalized.contains("metric")) {
+            // Metric units view
+            driver.get("https://www.calculator.net/carbohydrate-calculator.html?ctype=metric");
+        } else if (normalized.contains("other")) {
+            // Other units view (not currently used, but here for completeness)
+            driver.get("https://www.calculator.net/carbohydrate-calculator.html?ctype=other");
+        }
     }
-}
 
     public void enterAge(String age) {
         WebElement ageInput = driver.findElement(ageField);
@@ -51,7 +52,9 @@ public class CarbCalculatorPage {
     public void selectGender(String gender) {
         String value = gender.equalsIgnoreCase("male") ? "m" : "f";
         WebElement genderRadio = driver.findElement(By.cssSelector("input[name='csex'][value='" + value + "']"));
-        genderRadio.click();
+
+        // Use JavaScript click to avoid "element not interactable" in headless CI
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", genderRadio);
     }
 
     public void enterHeightUS(String feet, String inches) {
