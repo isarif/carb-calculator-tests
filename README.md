@@ -32,6 +32,12 @@ The Excel file `Carb_Calculator_Test_Strategy_and_Cases.xlsx` in the repo root c
 - Test Cases
 - Automation Scenarios mapping manual to automated tests.
 
+## 🎥 Automation Demo (Watch the Tests Run!)
+
+Below is a short recording of the Selenium + Cucumber tests running locally:
+
+![Automation Running](docs/automation.gif)
+
 
 ## 🔍 How I Approached This Assignment
 
